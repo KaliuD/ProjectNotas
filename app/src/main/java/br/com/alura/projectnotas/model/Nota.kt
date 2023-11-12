@@ -1,10 +1,8 @@
 package br.com.alura.projectnotas.model
 
 data class Nota(
-    val titulo: String?,
-    val conteudo: String?
-){
-//    TO-DO
-//    val dataCriação
-//    val capa
-}
+    var conteudo: String,
+    var titulo: String? = "Sem Titulo",
+    var capa: String? = "Sem Capa",
+    val id: Int = 0
+)

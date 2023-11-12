@@ -9,5 +9,5 @@ data class Notas(
     var titulo: String ,
     var capa: String? = "Sem Capa",
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Int = 0
 )

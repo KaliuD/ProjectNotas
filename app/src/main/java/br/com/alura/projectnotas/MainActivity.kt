@@ -1,30 +1,30 @@
 package br.com.alura.projectnotas
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.room.Room
-import br.com.alura.projectnotas.data.AppDataBase
-import br.com.alura.projectnotas.data.Notas
-import br.com.alura.projectnotas.ui.theme.ProjectNotasTheme
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import br.com.alura.projectnotas.adapter.NotaAdapter
+import br.com.alura.projectnotas.databinding.ActivityMainBinding
+import br.com.alura.projectnotas.extensions.toModel
+import br.com.alura.projectnotas.model.Nota
 
 class MainActivity : ComponentActivity() {
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val conteudo = "conteudo da nota"
+        setContentView(binding.root)
 
-        val nota = Notas(conteudo, "Segunda Nota")
-
-        MyApplication.database?.dao?.inserir(nota)
-        val notas = MyApplication.database?.dao?.getNotas()
-        Log.d("Minha Tag", "Estas são as notas salvas: ${notas.toString()}")
+        val recyclerView: RecyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = getNotas()?.let { NotaAdapter(this, it) }
     }
+
+    private fun getNotas(): List<Nota>? {
+        return MyApplication.database?.dao?.getNotas()?.map { e -> e.toModel() }
+    }
+
+
 }
