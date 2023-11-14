@@ -15,16 +15,22 @@ class MainActivity : ComponentActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+    private lateinit var notaAdapter: NotaAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        notaAdapter = NotaAdapter(this, getNotas() ?: emptyList())
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = NotaAdapter(this, getNotas() ?: throw NullPointerException("Notas Vazias"))
+        recyclerView.adapter = notaAdapter
 
         acionaBotaoFormulario()
-//        recyclerView.adapter = getNotas()?.let { NotaAdapter(this, it) } //backup caso de errado
+    }
+
+    override fun onResume() {
+        super.onResume()
+        notaAdapter.atualizarNotas(getNotas() ?: emptyList())
     }
 
     private fun getNotas(): List<Nota>? {
