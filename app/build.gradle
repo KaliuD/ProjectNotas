@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'br.com.alura.projectnotas'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "br.com.alura.projectnotas"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -52,6 +52,11 @@ android {
 dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.3.1'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
     def roomVersion = "2.5.0"
 
     implementation("androidx.room:room-runtime:$roomVersion")
@@ -78,4 +83,5 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    implementation "io.coil-kt:coil:2.5.0"
 }

@@ -1,9 +1,11 @@
-package br.com.alura.projectnotas
+package br.com.alura.projectnotas.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.alura.projectnotas.MyApplication
 import br.com.alura.projectnotas.adapter.NotaAdapter
 import br.com.alura.projectnotas.databinding.ActivityMainBinding
 import br.com.alura.projectnotas.extensions.toModel
@@ -19,11 +21,21 @@ class MainActivity : ComponentActivity() {
 
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = getNotas()?.let { NotaAdapter(this, it) }
+        recyclerView.adapter = NotaAdapter(this, getNotas() ?: throw NullPointerException("Notas Vazias"))
+
+        acionaBotaoFormulario()
+//        recyclerView.adapter = getNotas()?.let { NotaAdapter(this, it) } //backup caso de errado
     }
 
     private fun getNotas(): List<Nota>? {
         return MyApplication.database?.dao?.getNotas()?.map { e -> e.toModel() }
+    }
+
+    private fun acionaBotaoFormulario(){
+        binding.criarNota.setOnClickListener{
+            val intent = Intent(this, FormularioNotaActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 
