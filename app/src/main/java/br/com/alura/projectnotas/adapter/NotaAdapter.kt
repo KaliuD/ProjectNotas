@@ -1,11 +1,13 @@
 package br.com.alura.projectnotas.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import br.com.alura.projectnotas.R
 import br.com.alura.projectnotas.databinding.CardNoteBinding
 import br.com.alura.projectnotas.model.Nota
 import coil.load
@@ -15,6 +17,7 @@ class NotaAdapter(
     private var notas: List<Nota>
     ):
     RecyclerView.Adapter<NotaAdapter.NotaViewHolder>() {
+    var onItemClick: ((Nota) -> Unit)? = null
 
     class NotaViewHolder(binding: CardNoteBinding): RecyclerView.ViewHolder(binding.root) {
         private val titulo = binding.textTitle
@@ -25,12 +28,21 @@ class NotaAdapter(
             titulo.text = nota.titulo
             conteudo.text = nota.conteudo
 
-            if (nota.imagens != null && nota.imagens != "Sem Imagens"){
+            if (!nota.imagens.isNullOrBlank()) {
                 val listaDeUrls = nota.imagens!!.split(", ")
-                if (listaDeUrls.isNotEmpty()){
-                    imageView.load(listaDeUrls[0])
-                }else imageView.visibility = View.GONE
-            }else imageView.visibility = View.GONE
+                if (listaDeUrls.isNotEmpty()) {
+                    imageView.visibility = View.VISIBLE
+                    // Aqui usamos o método load do Coil para carregar a imagem
+                    imageView.load(listaDeUrls[0]) {
+                        crossfade(true)
+                        placeholder(R.drawable.ic_launcher_foreground_placeholder) // Recurso de placeholder enquanto a imagem carrega
+                    }
+                } else {
+                    imageView.visibility = View.GONE
+                }
+            } else {
+                imageView.visibility = View.GONE
+            }
         }
     }
 
@@ -52,5 +64,10 @@ class NotaAdapter(
     override fun onBindViewHolder(holder: NotaViewHolder, position: Int) {
         val nota = notas[position]
         holder.vincula(nota)
+
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(nota)
+        }
     }
 }

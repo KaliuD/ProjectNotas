@@ -16,4 +16,19 @@ interface NotasDao {
     @Delete
     fun deletar(nota: Notas)
 
+    @Query("Select * FROM notas WHERE id=:id")
+    fun getNotaPorId(id: Int): Notas
+
+    @Query("UPDATE notas SET " +
+            "conteudo=:conteudo, " +
+            "titulo=:titulo, " +
+            "imagens=:imagens " +
+            "WHERE id=:id")
+    fun atualizarNota(
+        id: Int,
+        conteudo: String,
+        titulo: String?,
+        imagens: String?
+    )
+
 }
