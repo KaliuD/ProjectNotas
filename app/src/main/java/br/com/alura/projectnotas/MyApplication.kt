@@ -2,9 +2,10 @@ package br.com.alura.projectnotas
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import br.com.alura.projectnotas.data.AppDataBase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 open class MyApplication: Application() {
     companion object{
@@ -14,10 +15,12 @@ open class MyApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        //TO-DO: Mudar "allowMainThreadQueries"
-        database = Room
-            .databaseBuilder(this, AppDataBase::class.java, "notas-db")
-            .allowMainThreadQueries()
-            .build()
+        CoroutineScope(Dispatchers.IO).launch {
+            database = Room.databaseBuilder(
+                this@MyApplication,
+                AppDataBase::class.java,
+                "notas-db"
+            ).build()
+        }
     }
 }

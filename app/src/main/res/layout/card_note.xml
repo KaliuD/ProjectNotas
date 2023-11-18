@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Adicione aqui outros elementos para exibir detalhes da nota -->
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="wrap_content"
@@ -34,6 +33,22 @@
             android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
+
+        <!-- Adicione um espaço flexível para empurrar o botão para a direita -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Adicione um botão no canto superior direito -->
+        <Button
+            android:id="@+id/buttonExcluir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Excluir"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp" />
+
 
     </LinearLayout>
 

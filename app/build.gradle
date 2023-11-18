@@ -67,6 +67,8 @@ dependencies {
     // To use Kotlin Symbolic Processing (KSP)
     ksp("androidx.room:room-compiler:$roomVersion")
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alura.projectnotas.R
 import br.com.alura.projectnotas.databinding.CardNoteBinding
@@ -18,11 +17,13 @@ class NotaAdapter(
     ):
     RecyclerView.Adapter<NotaAdapter.NotaViewHolder>() {
     var onItemClick: ((Nota) -> Unit)? = null
+    var onExcluirClick: ((Nota) -> Unit)? = null
 
     class NotaViewHolder(binding: CardNoteBinding): RecyclerView.ViewHolder(binding.root) {
         private val titulo = binding.textTitle
         private val conteudo = binding.textContent
         private val imageView = binding.imageView
+        val bindingCard = binding
 
         fun vincula(nota: Nota){
             titulo.text = nota.titulo
@@ -65,6 +66,9 @@ class NotaAdapter(
         val nota = notas[position]
         holder.vincula(nota)
 
+        holder.bindingCard.buttonExcluir.setOnClickListener{
+            onExcluirClick?.invoke(nota)
+        }
 
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(nota)

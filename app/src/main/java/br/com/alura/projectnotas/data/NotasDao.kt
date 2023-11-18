@@ -13,8 +13,8 @@ interface NotasDao {
     @Insert
     fun inserir(nota: Notas)
 
-    @Delete
-    fun deletar(nota: Notas)
+    @Query("DELETE FROM notas WHERE id = :id")
+    fun deletar(id: Int)
 
     @Query("Select * FROM notas WHERE id=:id")
     fun getNotaPorId(id: Int): Notas

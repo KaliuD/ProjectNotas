@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="URL da imagem"
-            android:text="https://i.pinimg.com/originals/8e/0d/56/8e0d568f9f5c2ff9c1dbd9696f808a3f.jpg"
             android:inputType="textUri" />
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
